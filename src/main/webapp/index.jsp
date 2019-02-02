@@ -10,6 +10,9 @@
 <hr />
 <h1> Veirfy build pipeline </h1>
 <h1> Deploy using Jenkins file </h1>
+<hr />
+
+<h1> Implemented end to end deployment using manual push to production</h1>
 
 </body>
 </html>
