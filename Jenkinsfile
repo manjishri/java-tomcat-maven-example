@@ -5,37 +5,33 @@ pipeline {
             steps {
                 sh  'mvn clean package'
             }
-
             post{
                 success{
                     echo 'Now Archiving ....'
-
                     archiveArtifacts artifacts : '**/*.war'
                 }
             }
         }
-
-        stage ('Deploy build in stage area') {
-            steps {
-                    build job : 'Build-Stage-Area'
+        stage ('Deploy Build in Staging Area'){
+            steps{
+                build job : 'Build-Stage-Area'
             }
         }
-
-        stage ('Deploy to production' {
-            steps {
-                timeout (time:5, unit: 'DAYS'){
-                    input message: 'Approve production deployment?'
+        stage ('Deploy to Production'){
+            steps{
+                timeout (time: 5, unit:'DAYS'){
+                    input message: 'Approve PRODUCTION Deployment?'
                 }
-                build job: 'Deploy-Prod-pipeline'
+                build job : 'Deploy-Prod-pipeline'
             }
-            post {
-                success {
-                    echo 'Deployment to prod is successful'
+            post{
+                success{
+                    echo 'Deployment on PRODUCTION is Successful'
                 }
-                failure {
-                    echo 'Deployment to prod is failed'
+                failure{
+                    echo 'Deployement Failure on PRODUCTION'
                 }
             }
         }
-   
+    }
 }
