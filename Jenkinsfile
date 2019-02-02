@@ -14,28 +14,28 @@ pipeline {
                 }
             }
         }
-	
-	stage ('Deploy build in stage area') {
-		steps {
-			build job : 'Build-Stage-Area'
-		}
-	}
-	
-	stage ('Deploy to production' {
-		steps {
-			timeout (time:5, unit: 'DAYS'){
-				input message: 'Approve production deployment?'
-			}
-			build job: 'Deploy-Prod-pipeline'
-		}
-		post {
-			success {
-				echo 'Deployment to prod is successful'
-			}
-			failure {
-				echo 'Deployment to prod is failed'
-			}
-		}
-	}
-   } 
+
+        stage ('Deploy build in stage area') {
+            steps {
+                    build job : 'Build-Stage-Area'
+            }
+        }
+
+        stage ('Deploy to production' {
+            steps {
+                timeout (time:5, unit: 'DAYS'){
+                    input message: 'Approve production deployment?'
+                }
+                build job: 'Deploy-Prod-pipeline'
+            }
+            post {
+                success {
+                    echo 'Deployment to prod is successful'
+                }
+                failure {
+                    echo 'Deployment to prod is failed'
+                }
+            }
+        }
+   }
 }
